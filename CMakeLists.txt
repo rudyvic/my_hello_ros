@@ -205,3 +205,7 @@ add_dependencies(my_talker my_hello_ros_generate_messages_cpp)
 add_executable(my_listener src/listener.cpp)
 target_link_libraries(my_listener ${catkin_LIBRARIES})
 add_dependencies(my_listener my_hello_ros_generate_messages_cpp)
+
+add_executable(ten src/ten.cpp)
+target_link_libraries(ten ${catkin_LIBRARIES})
+add_dependencies(ten my_hello_ros_generate_messages_cpp)

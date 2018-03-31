@@ -1,29 +1,9 @@
 #include "ros/ros.h"
 #include "my_hello_ros/Num.h"
-#include "std_msgs/Int64.h"
 
-int count = 0;
-ros::Publisher chatter_pub;
-
-/**
- * This tutorial demonstrates simple receipt of messages over the ROS system.
- */
 void chatterCallback(const my_hello_ros::Num::ConstPtr& msg)
 {
     ROS_INFO("I heard: [%d]", msg->num);
-
-    count++;
-    if(count==10) {
-        std_msgs::Int64 msg_new;
-
-        msg_new.data = msg->num;
-
-        ROS_INFO("%d", msg_new.data);
-        
-        chatter_pub.publish(msg);
-        
-        count = 0;
-    }
 }
 
 int main(int argc, char **argv)
@@ -38,7 +18,7 @@ int main(int argc, char **argv)
      * You must call one of the versions of ros::init() before using any other
      * part of the ROS system.
      */
-    ros::init(argc, argv, "listener");
+    ros::init(argc, argv, "ten");
 
     /**
      * NodeHandle is the main access point to communications with the ROS system.
@@ -62,8 +42,7 @@ int main(int argc, char **argv)
      * is the number of messages that will be buffered up before beginning to throw
      * away the oldest ones.
      */
-    ros::Subscriber sub = n.subscribe("oddNums", 1000, chatterCallback);
-    chatter_pub = n.advertise<my_hello_ros::Num>("oddNumsFiltered", 1000);
+    ros::Subscriber sub = n.subscribe("oddNumsFiltered", 1000, chatterCallback);
 
     ros::spin();
 
